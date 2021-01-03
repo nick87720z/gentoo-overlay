@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>nick87720z@gmail.com</email>
+		<name>Nikita Zlobin</name>
+		<description>Nikita Zlobin Overlay</description>
+	</maintainer>
+	<use>
+		<flag name="cuda">Build NVidia CUDA plugins</flag>
+		<flag name="numa">Enable NUMA support</flag>
+		<flag name="shuttle">Enable shuttle device support</flag>
+		<flag name="usb">Enable USB shuttle device support via libusb-1</flag>
+		<flag name="v4l2">Enable video4linux2 support</flag>
+		<flag name="vidmode">Enable fullscreen support with XFree86 VidMode extension</flag>
+	</use>
+</pkgmetadata>
