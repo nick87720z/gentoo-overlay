@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>nick87720z@gmail.com</email>
+		<name>Nikita Zlobin</name>
+		<description>Nikita Zlobin Overlay</description>
+	</maintainer>
+	<use>
+		<flag name="cairo">Enable Cairo graphics backend</flag>
+		<flag name="opengl">Enable OpenGL graphics backend</flag>
+		<flag name="vulkan">Enable Vulkan graphics backend</flag>
+	</use>
+</pkgmetadata>
