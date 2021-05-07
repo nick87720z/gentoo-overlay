@@ -1,4 +1,4 @@
-# Copyright 2021 Nikita Zlobin <nick87720z@gmail.com>
+# Copyright 2021 Nikita Zlobin
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
@@ -17,13 +17,13 @@ KEYWORDS=""
 IUSE="cairo opengl vulkan doc examples test"
 
 COMMON_DEPEND="
-	cairo? ( x11-libs/cairo )
+	cairo? ( x11-libs/cairo[X] )
 	opengl? ( virtual/opengl )
 	x11-libs/libX11
 "
 
 RDEPEND="${COMMON_DEPEND}
-	vulkan? ( dev-util/vulkan-loader )
+	vulkan? ( media-libs/vulkan-loader[X] )
 "
 
 DEPEND="${COMMON_DEPEND}
@@ -49,4 +49,3 @@ src_configure() {
 	)
 	meson_src_configure
 }
-
