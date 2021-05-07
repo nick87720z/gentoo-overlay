@@ -1,3 +1,0 @@
-nick87720z@gmail.com
-	- update EAPI, homepage, drop unsecure urls
-	- fix fetch (src_unpack) - move post-unpack steps to src_prepare
