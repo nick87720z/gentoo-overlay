@@ -12,18 +12,16 @@ SRC_URI="https://www.${PN}.org/releases/${P}/${P}.tar.gz"
 LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="nls alsa oss jack jackmidi wav smf lv2 static-libs test debug"
+IUSE="nls alsa oss jack jackmidi wav smf lv2 vst static-libs test debug"
 
 # TODO: USE=opengl
 # opengl? ( media-libs/pugl )
 # --enable-gui=$(usex opengl {pugl-,}x11)
 
-# TODO: USE=vst
-# vst? ( media-libs/vst-sdk:3 )
-
 REQUIRED_USE="jackmidi? ( jack )"
 
 RDEPEND="lv2? ( media-libs/lv2 )
+		vst? ( media-libs/vst-sdk:2.4 )
 		jack? ( virtual/jack )
 		wav? ( media-libs/libsndfile )
 		alsa? ( media-libs/alsa-lib )
@@ -47,7 +45,7 @@ src_configure() {
 	CONFIG=(
 		--enable-gui=x11
 		$(use_enable lv2)
-		#$(use_enable vst)
+		$(use_enable vst)
 		$(use_enable alsa     output-alsa)
 		$(use_enable oss      output-oss)
 		$(use_enable jack     output-jackaudio)
@@ -58,6 +56,7 @@ src_configure() {
 		$(use_with test)
 		$(use_with debug)
 		$(use_with nls)
+		--with-vst-sources="/usr/include/vst24"
 		--disable-sse
 	)
 	econf ${CONFIG[@]}
