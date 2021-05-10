@@ -23,7 +23,7 @@ BDEPEND="
 "
 CDEPEND="
 	${PYTHON_DEPS}
-	plugins? ( x11-libs/gtk+:2 media-libs/libsndfile )
+	plugins? ( x11-libs/gtk+:2[${MULTILIB_USEDEP}] media-libs/libsndfile[${MULTILIB_USEDEP}] )
 	coverage? ( dev-util/lcov )
 "
 DEPEND="
