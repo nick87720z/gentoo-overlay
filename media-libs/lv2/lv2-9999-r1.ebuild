@@ -16,6 +16,7 @@ SLOT="0"
 KEYWORDS=""
 IUSE="doc debug plugins coverage test"
 REQUIRED_USE="${PYTHON_REQUIRED_USE}"
+RESTRICT="!test? ( test )"
 
 BDEPEND="
 	plugins? ( virtual/pkgconfig )

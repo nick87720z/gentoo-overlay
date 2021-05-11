@@ -15,6 +15,7 @@ SLOT="0"
 KEYWORDS=""
 
 IUSE="cairo opengl vulkan doc examples test"
+RESTRICT="!test? ( test )"
 
 COMMON_DEPEND="
 	cairo? ( x11-libs/cairo[X] )
