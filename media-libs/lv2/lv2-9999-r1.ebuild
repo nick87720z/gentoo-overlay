@@ -63,6 +63,10 @@ multilib_src_configure() {
 	waf-utils_src_configure ${conf_args[@]}
 }
 
+multilib_src_compile() {
+	waf-utils_src_compile
+}
+
 multilib_src_install() {
 	waf-utils_src_install
 	multilib_is_native_abi && use doc && dodoc build/plugins/book.{txt,html}
