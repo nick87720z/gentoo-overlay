@@ -28,8 +28,9 @@ RDEPEND="
 	dev-libs/serd[${MULTILIB_USEDEP}]
 "
 DEPEND="${RDEPEND}
-	${PYTHON_DEPS}"
-
+	${PYTHON_DEPS}
+	coverage? ( dev-util/lcov )
+"
 DOCS=( AUTHORS NEWS README.md )
 
 src_prepare() {

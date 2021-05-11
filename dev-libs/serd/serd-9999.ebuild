@@ -27,6 +27,7 @@ BDEPEND="
 RDEPEND=""
 DEPEND="${RDEPEND}
 	${PYTHON_DEPS}
+	coverage? ( dev-util/lcov )
 "
 DOCS=( "AUTHORS" "NEWS" "README.md" )
 
