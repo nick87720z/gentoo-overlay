@@ -9,7 +9,7 @@ inherit git-r3 python-any-r1 waf-utils multilib-build multilib-minimal
 
 DESCRIPTION="Library for RDF syntax which supports reading and writing Turtle and NTriples"
 HOMEPAGE="https://drobilla.net/software/serd/"
-EGIT_REPO_URI="https://git{lab,hub}.com/drobilla/serd.git  https://git.drobilla.net/serd.git"
+EGIT_REPO_URI="https://gitlab.com/drobilla/serd.git https://git.drobilla.net/serd.git"
 
 LICENSE="ISC"
 SLOT="0"
