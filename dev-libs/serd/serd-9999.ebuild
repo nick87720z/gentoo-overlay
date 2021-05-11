@@ -23,7 +23,6 @@ BDEPEND="
 RDEPEND=""
 DEPEND="${RDEPEND}
 	${PYTHON_DEPS}
-	!!media-sound/drobilla
 "
 DOCS=( "AUTHORS" "NEWS" "README.md" )
 
