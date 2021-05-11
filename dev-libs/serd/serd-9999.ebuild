@@ -5,7 +5,7 @@ EAPI=7
 
 PYTHON_COMPAT=( python3_{7..9} )
 PYTHON_REQ_USE='threads(+)'
-inherit git-r3 python-any-r1 waf-utils multilib-build multilib-minimal
+inherit python-any-r1 waf-utils multilib-build multilib-minimal git-r3
 
 DESCRIPTION="Library for RDF syntax which supports reading and writing Turtle and NTriples"
 HOMEPAGE="https://drobilla.net/software/serd/"

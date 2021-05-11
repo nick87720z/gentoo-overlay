@@ -2,10 +2,10 @@
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI="7"
-PYTHON_COMPAT=( python3_{6,7,8,9} )
+PYTHON_COMPAT=( python3_{6..9} )
 PYTHON_REQ_USE='threads(+),xml(+)'
 
-inherit git-r3 python-single-r1 waf-utils multilib-build multilib-minimal
+inherit python-single-r1 waf-utils multilib-build multilib-minimal git-r3
 
 DESCRIPTION="A simple but extensible successor of LADSPA"
 HOMEPAGE="http://lv2plug.in/"
