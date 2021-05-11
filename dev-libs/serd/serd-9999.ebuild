@@ -18,7 +18,11 @@ IUSE="coverage debug doc sanity-check static static-libs test +utils"
 RESTRICT="!test? ( test )"
 
 BDEPEND="
-	doc? ( app-doc/doxygen )
+	doc? (
+		app-doc/doxygen
+		dev-python/sphinx
+		dev-python/sphinx_lv2_theme
+	)
 "
 RDEPEND=""
 DEPEND="${RDEPEND}
