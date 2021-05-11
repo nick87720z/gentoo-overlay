@@ -66,10 +66,6 @@ multilib_src_configure() {
 multilib_src_install() {
 	waf-utils_src_install
 	multilib_is_native_abi && use doc && dodoc build/plugins/book.{txt,html}
-
-	rm -r "${D}/usr/$(get_libdir)/lv2/lv2core.lv2"
-	dosym core.lv2  /usr/$(get_libdir)/lv2/lv2core.lv2
-
 }
 
 multilib_src_install_all() {
