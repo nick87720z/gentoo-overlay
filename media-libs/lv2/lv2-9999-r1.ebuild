@@ -54,7 +54,6 @@ multilib_src_configure() {
 	conf_args=(
 		--docdir="${EPREFIX}"/usr/share/doc/${PF}
 		--lv2dir="${EPREFIX}"/usr/$(get_libdir)/lv2
-		--copy-headers
 		$(use debug    || echo --debug)
 		$(multilib_native_usex doc --docs "")
 		$(use plugins  || echo " --no-plugins")
