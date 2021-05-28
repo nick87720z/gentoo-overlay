@@ -1,7 +1,7 @@
 diff --git a/CMakeLists.txt b/CMakeLists.txt
 index 17e82ee..c4d2340 100644
---- a/CMakeLists.txt
-+++ b/CMakeLists.txt
+--- a/src/CMakeLists.txt
++++ b/src/CMakeLists.txt
 @@ -176,7 +176,7 @@ if ( MODULES_BUILD_STATIC )
  # We need these always, for a few of the shared modules in the muse/core build,
  #  even when building muse/core as static. Otherwise it can't find them on run. Tim.
