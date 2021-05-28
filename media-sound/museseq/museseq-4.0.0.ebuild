@@ -108,7 +108,7 @@ src_configure() {
 		-DENABLE_VST_VESTIGE=$(usex vst-sdk no yes)
 		-DMODULES_BUILD_STATIC=$(usex static-modules)
 		-DUPDATE_TRANSLATIONS=OFF
-		$(use vst-sdk && echo -DVST_HEADR_PATH="/usr/include/vst24/pluginterfaces/vst2.x")
+		$(use vst-sdk && echo -DVST_HEADER_PATH="/usr/include/vst24/pluginterfaces/vst2.x")
 	)
 	cmake_src_configure
 }
