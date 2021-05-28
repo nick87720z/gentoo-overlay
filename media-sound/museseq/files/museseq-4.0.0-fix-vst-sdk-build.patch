@@ -1,0 +1,101 @@
+From d48efb41cdf70ac739f9b655f8c20cc9a29dc3f6 Mon Sep 17 00:00:00 2001
+From: Tim <col@localhost.localdomain>
+Date: Thu, 27 May 2021 21:23:10 -0400
+Subject: [PATCH] Possible fix 1013 + fix related errors
+
+---
+ src/ChangeLog                         |  1 +
+ src/config.h.in                       |  3 ++-
+ src/libs/plugin/plugin_cache_writer.h | 14 +++++++-------
+ src/muse/vst_native.cpp               |  4 ----
+ src/muse/vst_native.h                 |  2 +-
+ src/sandbox/muse_plugin_scan.cpp      |  2 +-
+ 6 files changed, 12 insertions(+), 14 deletions(-)
+
+diff --git a/src/ChangeLog b/src/ChangeLog
+diff --git a/src/config.h.in b/src/config.h.in
+index c160eb1d7..f000d0c16 100644
+--- a/src/config.h.in
++++ b/src/config.h.in
+@@ -60,5 +60,6 @@
+ #define SHAREDIR            "${MusE_SHARE_DIR}"
+ #define LIBDIR              "${MusE_LIB_DIR}"
+ #define BINDIR              "${MusE_BIN_DIR}"
+-
++// REMOVE Tim. vst. Added.
++#define VST_SDK_QUIRK_DEF   "${VST_SDK_QUIRK}"
+ #endif // _MUSE_CONFIG_H_
+diff --git a/src/libs/plugin/plugin_cache_writer.h b/src/libs/plugin/plugin_cache_writer.h
+index 776b1c972..7f272f1dd 100644
+--- a/src/libs/plugin/plugin_cache_writer.h
++++ b/src/libs/plugin/plugin_cache_writer.h
+@@ -45,9 +45,9 @@
+ 
+ 
+ #ifdef VST_NATIVE_SUPPORT
+-#ifdef VST_SDK_QUIRK
++#ifdef VST_SDK_QUIRK_DEF
+ #define __cdecl
+-#endif // VST_SDK_QUIRK
++#endif // VST_SDK_QUIRK_DEF
+ 
+ #include "aeffectx.h"
+ 
+@@ -72,11 +72,11 @@ enum VstStringLengths
+ namespace MusEPlugin {
+ enum VstStringLengths
+ {
+-  MaxVstNameLen       = 64,
+-  MaxVstLabelLen      = 64,
+-  MaxVstShortLabelLen = 8,
+-  MaxVstCategLabelLen = 24,
+-  MaxVstFileNameLen   = 100
++  VstNameLen          = 64,
++  VstLabelLen         = 64,
++  VstShortLabelLen    = 8,
++  VstCategoryLabelLen = 24,
++  VstFileNameLen      = 100
+ };
+ } // namespace MusEPlugin
+ #endif // VST_VESTIGE_SUPPORT
+diff --git a/src/muse/vst_native.cpp b/src/muse/vst_native.cpp
+index ce4034d63..a1c566769 100644
+--- a/src/muse/vst_native.cpp
++++ b/src/muse/vst_native.cpp
+@@ -3408,10 +3408,6 @@ void VstNativePluginWrapper::apply(LADSPA_Handle handle, unsigned long n, float
+    {
+      state->plugin->processReplacing(state->plugin, &state->inPorts [0], &state->outPorts [0], n);
+    }
+-   else if(state->plugin->process)
+-   {
+-      state->plugin->process(state->plugin, &state->inPorts [0], &state->outPorts [0], n);
+-   }
+    state->inProcess = false;
+ 
+ }
+diff --git a/src/muse/vst_native.h b/src/muse/vst_native.h
+index 0c45e5f0a..0767cd8fd 100644
+--- a/src/muse/vst_native.h
++++ b/src/muse/vst_native.h
+@@ -46,7 +46,7 @@ class VstNativeSynthIF;
+ 
+ typedef class VstNativeSynthIF VSTPlugin;
+ 
+-#ifdef VST_SDK_QUIRK
++#ifdef VST_SDK_QUIRK_DEF
+ #define __cdecl
+ #endif
+ 
+diff --git a/src/sandbox/muse_plugin_scan.cpp b/src/sandbox/muse_plugin_scan.cpp
+index 11e75eed2..fa35352b8 100644
+--- a/src/sandbox/muse_plugin_scan.cpp
++++ b/src/sandbox/muse_plugin_scan.cpp
+@@ -43,7 +43,7 @@
+ 
+ #ifdef VST_NATIVE_SUPPORT
+ 
+-#ifdef VST_SDK_QUIRK
++#ifdef VST_SDK_QUIRK_DEF
+ #define __cdecl
+ #endif
+ 

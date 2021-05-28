@@ -1,0 +1,23 @@
+From 570382be42701117eaf36bd002073410a3c10c86 Mon Sep 17 00:00:00 2001
+From: nick87720z <nick87720z@gmail.com>
+Date: Thu, 27 May 2021 14:56:56 +0500
+Subject: [PATCH] Fix build with disabled OSC (bug #1012)
+
+---
+ src/muse/main.cpp | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/src/muse/main.cpp b/src/muse/main.cpp
+index b75c08ebe..e24e8ce11 100644
+--- a/src/muse/main.cpp
++++ b/src/muse/main.cpp
+@@ -1474,7 +1474,9 @@ int main(int argc, char* argv[])
+         qDebug() << "->" << qPrintable(QTime::currentTime().toString("hh:mm:ss.zzz"))
+                  << "Init OSC / metronome...";
+ 
++  #ifdef OSC_SUPPORT
+         MusECore::initOSC();
++  #endif
+ 
+         MusECore::initMetronome();
+ 

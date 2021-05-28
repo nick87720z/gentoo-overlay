@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>nick87720z@gmail.com</email>
+		<name>Nikita Zlobin</name>
+		<description>Nikita Zlobin Overlay</description>
+	</maintainer>
+	<use>
+		<flag name="dssi">Enable dssi and dssi-vst support</flag>
+		<flag name="fluidsynth">Enable fluidsynth support</flag>
+		<flag name="lash">Enable lash support</flag>
+		<flag name="libinstpatch">Enable Instrument Patch Library support (enhances soundfont support)</flag>
+		<flag name="lrdf">Enable LADSPA RDF to support extra info about LADSPA plugins</flag>
+		<flag name="lv2">Enable LV2 plugins and synths support</flag>
+		<flag name="osc">Enable OSC support</flag>
+		<flag name="python">Enable python remote control with Pyro</flag>
+		<flag name="rtaudio">Multi platform rtaudio audio compatibility fallback</flag>
+		<flag name="rubberband">Enable RubberBand audio stretcher / pitch shifter / sample rate converter</flag>
+		<flag name="static-modules">Static build type of internal modules</flag>
+		<flag name="vst-sdk">Use official vst sdk instead of vestige</flag>
+		<flag name="vst">Enable vst support</flag>
+	</use>
+</pkgmetadata>
