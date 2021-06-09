@@ -6,4 +6,7 @@
 		<name>Nikita Zlobin</name>
 		<description>Nikita Zlobin Overlay</description>
 	</maintainer>
+	<use>
+		<flag name="libressl">Use libressl instead of openssl</flag>
+	</use>
 </pkgmetadata>
