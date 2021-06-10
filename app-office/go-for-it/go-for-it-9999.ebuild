@@ -31,7 +31,7 @@ DOCS=( AUTHORS CHANGELOG.md README.md screenshot.png )
 
 src_prepare() {
 	vala_src_prepare
-	cmake-utils_src_prepare
+	cmake_src_prepare
 }
 
 src_configure() {
@@ -49,7 +49,7 @@ src_configure() {
 		-DAPP_ID=${PN}
 		-DAPP_SYSTEM_NAME=${PN}
 	)
-	cmake-utils_src_configure
+	cmake_src_configure
 }
 
 src_test() {
