@@ -6,7 +6,7 @@ EAPI=7
 MY_PN="Go-For-It"
 VALA_MIN_API_VERSION="0.36"
 
-inherit vala cmake gnome2-utils git-r3
+inherit vala cmake gnome2-utils xdg-utils git-r3
 
 DESCRIPTION="A stylish to-do list with built-in productivity timer"
 HOMEPAGE="https://jmoerman.github.io/go-for-it/"
@@ -57,11 +57,17 @@ src_test() {
 }
 
 pkg_preinst() {
-	gnome2_icon_savelist
 	gnome2_schemas_savelist
 }
 
 pkg_postinst() {
-	gnome2_icon_cache_update
+	xdg_desktop_database_update
+	xdg_icon_cache_update
+	gnome2_schemas_update
+}
+
+pkg_postinst() {
+	xdg_desktop_database_update
+	xdg_icon_cache_update
 	gnome2_schemas_update
 }
