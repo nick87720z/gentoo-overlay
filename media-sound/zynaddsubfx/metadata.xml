@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>mick87720z@gmail.com</email>
+		<name>Nikita Zlobin</name>
+	</maintainer>
+	<use>
+		<flag name="dssi">Build DSSI plugins</flag>
+		<flag name="fusion">Build pugl-based "Zyn-Fusion" GUI</flag>
+		<flag name="ntk">Build x11-libs/ntk GUI</flag>
+		<flag name="sndio">Enable support for the media-sound/sndio backend</flag>
+	</use>
+</pkgmetadata>
