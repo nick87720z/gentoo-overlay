@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>nick87720z@gmail.com</email>
+		<name>Nikita Zlobin</name>
+	</maintainer>
+	<longdescription lang="en">
+		CxxTest is a unit testing framework for C++ that is similar in spirit
+		to JUnit, CppUnit, and xUnit. 
+	</longdescription>
+</pkgmetadata>
+
