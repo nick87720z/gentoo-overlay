@@ -162,17 +162,16 @@ src_install() {
 	use fusion && {
 		# Copied from linux-pack.sh and install-linux.sh scripts
 		cd "${WORKDIR}/mruby-zest-build"
+		make pack
+		cd package
 
 		insinto "/opt/zyn-fusion"
 
-		doins ./libzest.so
-		newins ./zest zyn-fusion
+		doins -r font qml schema VERSION libzest.so
+		newins zest zyn-fusion
 		fperms a+x "/opt/zyn-fusion/zyn-fusion"
 		dosym /opt/zyn-fusion/zyn-fusion /usr/bin/zyn-fusion
 
 		dobashcomp "completions/zyn-fusion"
-
-		dodir "/opt/zyn-fusion/qml"
-		touch "${D}/opt/zyn-fusion/qml/MainWindow.qml"
 	}
 }
