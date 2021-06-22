@@ -1,0 +1,64 @@
+#!/bin/bash
+#
+# Copyright (c) 2021 Nikita Zlobin <nick87720z@gmail.com>
+#
+# gitmodules-src-list-gen is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# gitmodules-src-list-gen is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+# executable dependencies: git, sed, sort
+
+# commit archive url formats:
+# repo.or.cz:    ${GIT_REPO_URI}/snapshot/${COMMIT}.tar.gz
+# github:        ${GIT_REPO_URI}/archive/${COMMIT}.tar.gz
+# gitlab:        ${GIT_REPO_URI}/-/archive/${COMMIT}/${PROJECT}-${COMMIT}.tar.bz2
+# git.tuxfamily.org,
+# savannah/cgit: ${GIT_REPO_URI}/snapshot/${PROJECT}-${COMMIT}.tar.gz
+
+git submodule foreach --recursive '
+        printf "%s\n" "$displaypath $(
+                url=$( git remote get-url origin )
+                url="${url%\/}"
+                IFS="/" read host tail <<< "${url/*:\/\//}"
+
+                name="${tail/*\//}"
+                name="${name%.git}"
+                filename="${name}-${sha1}"
+
+                url="${url/git:/https:}"
+
+                case "${host}" in
+                        repo.or.cz )
+                                printf "%s" "${filename} tar.gz  ${url}/snapshot/${sha1}.tar.gz" ;;
+                        *github.com    )
+                                printf "%s" "${filename} tar.gz  ${url}/archive/${sha1}.tar.gz" ;;
+                        *gitlab.com    )
+                                printf "%s" "${filename} tar.bz2 ${url}/-/archive/${sha1}/${name}-${sha1}.tar.bz2" ;;
+                        git.savannah.* )
+                                url=${url/${host}\/r\//${host}\/cgit\/}
+                                url=${url/${host}\/git\//${host}\/cgit\/}
+                                printf "%s" "${filename} tar.gz  ${url}/snapshot/${name}-${sha1}.tar.gz" ;;
+                        git.tuxfamily.org )
+                                printf "%s" "${filename} tar.gz  ${url}/snapshot/${name}-${sha1}.tar.gz" ;;
+                        * )
+                                printf "%s" "${filename} ${url}  <<<<< FIXME: Unsupported git host >>>>>" ;;
+                esac
+        )"
+' | sed -n '2~2p' | sort -k1,1
+
+missing="$( git submodule status --recursive | sed -n '/^-/s/-[[:alnum:]]*\ /- /p' )"
+if [ "${missing}" ]; then
+        printf "\n%s\n" \
+                "These submodules can't be described, because are not downloaded:" \
+                "$missing" \
+                "Run 'git submodule update' to update them."
+fi >&2
