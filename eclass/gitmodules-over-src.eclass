@@ -14,7 +14,12 @@
 # List is expected to be sorted by RELATIVE-PATH field.
 # It could be generated from existing repository by runing gitmodules-src-list-gen inside repository.
 
-# @ECLASS-VARIABLE: SRC_URI
+# @ECLASS-VARIABLE: GITMODULES_SRC_URI
+# @OUTPUT_VARIABLE
+# @DESCRIPTION
+# Sources list, generated from file ${FILESDIR}/${P}-gitmodules
+
+# @ECLASS-VARIABLE: GITMODULES_FILE
 # @REQUIRED
 # @PRE_INHERIT
 
@@ -22,17 +27,18 @@ case ${EAPI:-0} in
 * ) ;;
 esac
 
-[ -n "${SRC_URI}" ] || die "SRC_URI must be set before inheriting this class"
-
 EXPORT_FUNCTIONS src_unpack
 
-SUBMODULES_FILE="${FILESDIR}/${P}-submodules"
+GITMODULES_FILE="${FILESDIR}/${P}-gitmodules"
+[ -f "${GITMODULES_FILE}" ] || die "${ECLASS}: ${GITMODULES_FILE} is not found"
 
-# TODO: generic source tree assembler, not bound to github-specific layout
+GITMODULES_SRC_URI=
 
 while read m_path m_fname m_ext m_url; do
-	SRC_URI+=" ${m_url} -> ${m_fname}.${m_ext}"
-done < "${SUBMODULES_FILE}"
+	GITMODULES_SRC_URI+=" ${m_url} -> ${m_fname}.${m_ext}"
+done < "${GITMODULES_FILE}"
+
+export GITMODULES_SRC_URI
 
 gitmodules-over-src_src_unpack() {
 	default_src_unpack
@@ -44,5 +50,5 @@ gitmodules-over-src_src_unpack() {
 	while read m_path m_fname m_ext m_url; do
 		[ -d "${m_path}" ] || mkdir "${m_path}"
 		mv -f "../${m_fname}"/* "${m_path}"/
-	done < "${SUBMODULES_FILE}"
+	done < "${GITMODULES_FILE}"
 }
