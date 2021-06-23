@@ -6,13 +6,9 @@
 # Nikita Zlobin <nick87720z@gmail.com>
 # @AUTHOR:
 # Nikita Zlobin <nick87720z@gmail.com>
-# @BLURB: Eclass for git submodules fetching via SRC_URI from GitHub hosting
+# @BLURB: Eclass for git submodules fetching via SRC_URI from Git hosting
 # @DESCRIPTION:
-# This eclass unpacks full source tree from git submodules, downloaded in separate archives from GitHub.
-# Submodules list is defined in external file ${P}-submodules, located in ${FILESDIR} .
-# Each list of this list has following format: RELATIVE-PATH FILE-NAME FILE-EXT SNAPSHOT-URL
-# List is expected to be sorted by RELATIVE-PATH field.
-# It could be generated from existing repository by runing gitmodules-src-list-gen inside repository.
+# This eclass unpacks full source tree from git submodules, downloaded in separate archives from git hosting.
 
 # @ECLASS-VARIABLE: GITMODULES_SRC_URI
 # @OUTPUT_VARIABLE
