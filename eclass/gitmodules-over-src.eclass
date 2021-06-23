@@ -62,7 +62,7 @@ gitmodules-over-src_src_unpack() {
 
 	while read m_path m_fname m_ext m_url; do
 		[ "${m_path}" ] || continue
-		[ -d "${m_path}" ] || mkdir "${m_path}"
+		[ -d "${m_path}" ] || mkdir -p "${m_path}"
 		mv -f "../${m_fname}"/* "${m_path}"/
 	done <<< "${GITMODULES_LIST}"
 }
