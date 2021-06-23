@@ -40,6 +40,7 @@ git submodule foreach --recursive '
                         repo.or.cz )
                                 printf "%s" "${filename} tar.gz  ${url}/snapshot/${sha1}.tar.gz" ;;
                         *github.com    )
+                                url="${url%.git}"
                                 printf "%s" "${filename} tar.gz  ${url}/archive/${sha1}.tar.gz" ;;
                         *gitlab.com    )
                                 printf "%s" "${filename} tar.bz2 ${url}/-/archive/${sha1}/${name}-${sha1}.tar.bz2" ;;
