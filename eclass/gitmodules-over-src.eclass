@@ -38,7 +38,7 @@ gitmodules-over-src_src_unpack() {
 	default_src_unpack
 
 	# S could be set by ebuild to ${P} subdir
-	m_top=$( realpath --relative-base="${WORKDIR}" "${S}" )"
+	m_top=$( realpath --relative-base="${WORKDIR}" "${S}" )
 	cd "${WORKDIR}/${m_top/\/*/}"
 
 	while read m_path m_fname m_ext m_url; do
