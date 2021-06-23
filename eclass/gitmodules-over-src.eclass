@@ -48,7 +48,7 @@ fi
 GITMODULES_SRC_URI=
 
 while read m_path m_fname m_ext m_url; do
-	! [ "${m_path}" ] && continue
+	[ "${m_path}" ] || continue
 	GITMODULES_SRC_URI+=" ${m_url} -> ${m_fname}.${m_ext}"
 done <<< "${GITMODULES_LIST}"
 export GITMODULES_SRC_URI
@@ -61,7 +61,7 @@ gitmodules-over-src_src_unpack() {
 	cd "${WORKDIR}/${m_top/\/*/}"
 
 	while read m_path m_fname m_ext m_url; do
-		! [ "${m_path}" ] || continue
+		[ "${m_path}" ] || continue
 		[ -d "${m_path}" ] || mkdir "${m_path}"
 		mv -f "../${m_fname}"/* "${m_path}"/
 	done <<< "${GITMODULES_LIST}"
