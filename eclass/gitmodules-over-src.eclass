@@ -60,9 +60,11 @@ gitmodules-over-src_src_unpack() {
 	m_top=$( realpath --relative-base="${WORKDIR}" "${S}" )
 	cd "${WORKDIR}/${m_top/\/*/}"
 
+	einfo "Relocating git modules:"
 	while read m_path m_fname m_ext m_url; do
 		[ "${m_path}" ] || continue
 		[ -d "${m_path}" ] || mkdir -p "${m_path}"
+		einfo "\t${m_fname} \t-> ${m_path}"
 		mv -f "../${m_fname}"/* "${m_path}"/
 	done <<< "${GITMODULES_LIST}"
 }
