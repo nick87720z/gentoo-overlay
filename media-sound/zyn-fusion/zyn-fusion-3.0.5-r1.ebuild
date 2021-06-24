@@ -1,4 +1,4 @@
-# Copyright 2020 Gentoo Authors
+# Copyright 2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
@@ -8,29 +8,30 @@ PYTHON_COMPAT=( python{2_7,3_{6..9}} )
 PYTHON_REQ_USE='threads(+)'
 
 GITMODULES_LIST="
-deps/mruby-complex mruby-complex-4f57a1ef9f968e9d5eef53667c7960a2e98c9750 tar.gz  https://github.com/pbosetti/mruby-complex/archive/4f57a1ef9f968e9d5eef53667c7960a2e98c9750.tar.gz
-deps/mruby-dir-glob mruby-dir-glob-334c040a2e2c4c2689f8c3440168011f64d57ada tar.gz  https://github.com/gromnitsky/mruby-dir-glob/archive/334c040a2e2c4c2689f8c3440168011f64d57ada.tar.gz
-deps/mruby-glew mruby-glew-6849202f885516b381406e799dcdb430065e19cf tar.gz  https://github.com/IceDragon200/mruby-glew/archive/6849202f885516b381406e799dcdb430065e19cf.tar.gz
-deps/mruby-glfw3 mruby-glfw3-0eeee012fd4bbd6544dd34f17ce2b476ad71d86b tar.gz  https://github.com/IceDragon200/mruby-glfw3/archive/0eeee012fd4bbd6544dd34f17ce2b476ad71d86b.tar.gz
-deps/mruby-io mruby-io-1c4428880b2f0f0fcd81ea2debc5f4459a7ed53c tar.gz  https://github.com/iij/mruby-io/archive/1c4428880b2f0f0fcd81ea2debc5f4459a7ed53c.tar.gz
-deps/mruby-nanovg mruby-nanovg-d7d4e1ce434131babb5fd6026201011f5b0b50ea tar.gz  https://github.com/mruby-zest/mruby-nanovg/archive/d7d4e1ce434131babb5fd6026201011f5b0b50ea.tar.gz
-deps/mruby-regexp-pcre mruby-regexp-pcre-cd13fb15fd6b813fc6c9bc2f17db20257f71bb0c tar.gz  https://github.com/iij/mruby-regexp-pcre/archive/cd13fb15fd6b813fc6c9bc2f17db20257f71bb0c.tar.gz
-deps/mruby-set mruby-set-68334311ac7386eef84f3034a256e7135a87625d tar.gz  https://github.com/yui-knk/mruby-set/archive/68334311ac7386eef84f3034a256e7135a87625d.tar.gz
-deps/mruby-sleep mruby-sleep-263d70351a4f75a875f2a35ab9a9128d1ef5da90 tar.gz  https://github.com/matsumoto-r/mruby-sleep/archive/263d70351a4f75a875f2a35ab9a9128d1ef5da90.tar.gz
-deps/nanovg nanovg-b83cf926525e7cea8d2483da2a75852b8c7b6d28 tar.gz  https://github.com/memononen/nanovg/archive/b83cf926525e7cea8d2483da2a75852b8c7b6d28.tar.gz
-deps/pugl pugl-d87062625ed652df9455bd6f60ea89c53515c43a tar.gz  https://github.com/mruby-zest/pugl/archive/d87062625ed652df9455bd6f60ea89c53515c43a.tar.gz
-deps/rtosc rtosc-70307782622c668a325992f6887f354ca30d5e14 tar.gz  https://github.com/fundamental/rtosc/archive/70307782622c668a325992f6887f354ca30d5e14.tar.gz
-mruby mruby-e5b61d34f65cabfbe88f3f1709a1f9cff86585de tar.gz  https://github.com/mruby/mruby/archive/e5b61d34f65cabfbe88f3f1709a1f9cff86585de.tar.gz
-src/mruby-qml-parse mruby-qml-parse-a3e687124b5afe51cdc4d8d36cbff7204e81a1b4 tar.gz  https://github.com/mruby-zest/mruby-qml-parse/archive/a3e687124b5afe51cdc4d8d36cbff7204e81a1b4.tar.gz
-src/mruby-qml-spawn mruby-qml-spawn-77f782643c78a9cfe48e49f027d9978fb5e27d77 tar.gz  https://github.com/mruby-zest/mruby-qml-spawn/archive/77f782643c78a9cfe48e49f027d9978fb5e27d77.tar.gz
-src/mruby-zest mruby-zest-8352b7ae4a0efba111f72572d993efb892a27761 tar.gz  https://github.com/mruby-zest/mruby-zest/archive/8352b7ae4a0efba111f72572d993efb892a27761.tar.gz
-src/osc-bridge osc-bridge-67b0b5c85e0072ea0bee1129a1ec8cef1328faaa tar.gz  https://github.com/mruby-zest/osc-bridge/archive/67b0b5c85e0072ea0bee1129a1ec8cef1328faaa.tar.gz
-mruby/build/mrbgems/mgem-list mgem-list-2033837203c8a141b1f9d23bb781fe0cbaefbd24 tar.gz https://github.com/mruby/mgem-list/archive/2033837203c8a141b1f9d23bb781fe0cbaefbd24.tar.gz
-mruby/build/mrbgems/mruby-dir mruby-dir-89dceefa1250fb1ae868d4cb52498e9e24293cd1 tar.gz https://github.com/iij/mruby-dir/archive/89dceefa1250fb1ae868d4cb52498e9e24293cd1.tar.gz
-mruby/build/mrbgems/mruby-pack mruby-pack-383a9c79e191d524a9a2b4107cc5043ecbf6190b tar.gz https://github.com/iij/mruby-pack/archive/383a9c79e191d524a9a2b4107cc5043ecbf6190b.tar.gz
-mruby/build/mrbgems/mruby-errno mruby-errno-b4415207ff6ea62360619c89a1cff83259dc4db0 tar.gz https://github.com/iij/mruby-errno/archive/b4415207ff6ea62360619c89a1cff83259dc4db0.tar.gz
-mruby/build/mrbgems/mruby-file-stat mruby-file-stat-d196a1e529d227511cf19d516a46f62866619008 tar.gz https://github.com/ksss/mruby-file-stat/archive/d196a1e529d227511cf19d516a46f62866619008.tar.gz
-mruby/build/mrbgems/mruby-process mruby-process-95da206a5764f4e80146979b8e35bd7a9afd6850 tar.gz https://github.com/iij/mruby-process/archive/95da206a5764f4e80146979b8e35bd7a9afd6850.tar.gz"
+4f57a1ef9f968e9d5eef53667c7960a2e98c9750 deps/mruby-complex https://github.com/pbosetti/mruby-complex
+334c040a2e2c4c2689f8c3440168011f64d57ada deps/mruby-dir-glob https://github.com/gromnitsky/mruby-dir-glob
+6849202f885516b381406e799dcdb430065e19cf deps/mruby-glew https://github.com/IceDragon200/mruby-glew
+0eeee012fd4bbd6544dd34f17ce2b476ad71d86b deps/mruby-glfw3 https://github.com/IceDragon200/mruby-glfw3
+1c4428880b2f0f0fcd81ea2debc5f4459a7ed53c deps/mruby-io https://github.com/iij/mruby-io
+d7d4e1ce434131babb5fd6026201011f5b0b50ea deps/mruby-nanovg https://github.com/mruby-zest/mruby-nanovg
+cd13fb15fd6b813fc6c9bc2f17db20257f71bb0c deps/mruby-regexp-pcre https://github.com/iij/mruby-regexp-pcre
+68334311ac7386eef84f3034a256e7135a87625d deps/mruby-set https://github.com/yui-knk/mruby-set
+263d70351a4f75a875f2a35ab9a9128d1ef5da90 deps/mruby-sleep https://github.com/matsumoto-r/mruby-sleep
+b83cf926525e7cea8d2483da2a75852b8c7b6d28 deps/nanovg https://github.com/memononen/nanovg
+d87062625ed652df9455bd6f60ea89c53515c43a deps/pugl https://github.com/mruby-zest/pugl.git
+70307782622c668a325992f6887f354ca30d5e14 deps/rtosc https://github.com/fundamental/rtosc
+e5b61d34f65cabfbe88f3f1709a1f9cff86585de mruby https://github.com/mruby/mruby
+a3e687124b5afe51cdc4d8d36cbff7204e81a1b4 src/mruby-qml-parse https://github.com/mruby-zest/mruby-qml-parse
+77f782643c78a9cfe48e49f027d9978fb5e27d77 src/mruby-qml-spawn https://github.com/mruby-zest/mruby-qml-spawn
+8352b7ae4a0efba111f72572d993efb892a27761 src/mruby-zest https://github.com/mruby-zest/mruby-zest
+67b0b5c85e0072ea0bee1129a1ec8cef1328faaa src/osc-bridge https://github.com/mruby-zest/osc-bridge
+2033837203c8a141b1f9d23bb781fe0cbaefbd24 mruby/build/mrbgems/mgem-list https://github.com/mruby/mgem-list
+89dceefa1250fb1ae868d4cb52498e9e24293cd1 mruby/build/mrbgems/mruby-dir https://github.com/iij/mruby-dir
+383a9c79e191d524a9a2b4107cc5043ecbf6190b mruby/build/mrbgems/mruby-pack https://github.com/iij/mruby-pack
+b4415207ff6ea62360619c89a1cff83259dc4db0 mruby/build/mrbgems/mruby-errno https://github.com/iij/mruby-errno
+d196a1e529d227511cf19d516a46f62866619008 mruby/build/mrbgems/mruby-file-stat https://github.com/ksss/mruby-file-stat
+95da206a5764f4e80146979b8e35bd7a9afd6850 mruby/build/mrbgems/mruby-process https://github.com/iij/mruby-process
+"
 
 inherit bash-completion-r1 ruby-single python-any-r1 gitmodules-over-src
 
