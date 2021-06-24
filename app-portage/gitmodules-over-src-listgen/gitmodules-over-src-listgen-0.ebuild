@@ -38,7 +38,7 @@ src_compile() {
 }
 
 src_install() {
-	dobin "${FILESDIR}/gitmodules-src-list-gen"
+	dobin "${FILESDIR}/gitmodules-over-src-listgen"
 }
 
 pkg_postinst() {
