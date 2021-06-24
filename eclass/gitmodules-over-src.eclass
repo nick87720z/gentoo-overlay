@@ -15,20 +15,12 @@
 # @DESCRIPTION
 # Sources list, generated from gitmodules list variable
 
-# @ECLASS_VARIABLE: GITMODULES_LIST
+# @ECLASS-VARIABLE: GITMODULES_LIST
 # @PRE_INHERIT
 # @DESCRIPTION
 # Each line of this list has following format: RELATIVE-PATH FILE-NAME FILE-EXT SNAPSHOT-URL
 # List is expected to be sorted by RELATIVE-PATH field.
 # It could be generated from existing repository by runing gitmodules-src-list-gen inside repository.
-
-# commit archive url formats:
-# repo.or.cz:    ${GIT_REPO_URI}/snapshot/${COMMIT}.tar.gz
-# github:        ${GIT_REPO_URI}/archive/${COMMIT}.tar.gz
-# gitlab:        ${GIT_REPO_URI}/-/archive/${COMMIT}/${PROJECT}-${COMMIT}.tar.bz2
-# git.tuxfamily.org,
-# savannah/cgit: ${GIT_REPO_URI}/snapshot/${PROJECT}-${COMMIT}.tar.gz
-
 
 case ${EAPI:-0} in
 * ) ;;
@@ -82,6 +74,12 @@ while read commit path url; do
 done <<< "${GITMODULES_LIST}"
 export GITMODULES_SRC_URI
 
+# @FUNCTION: gitmodules-over-src_check_urls
+# @USAGE: gitmodules-over-src_check_urls
+# @RETURN: if no unsupported git hosts, the function will silently return 0 (aka shell true). If any urls have unsupported git hosts, function silently returns 1 (aka shell false).
+# @DESCRIPTION:
+# Print error if some gitmodules have url with unsupported git hosting.
+
 gitmodules-over-src_check_urls() {
 	if [ "${GITMODULES_UNSUPPORTED}" ]; then
 		eerror "Unsupported git hosts for these URLs:"
@@ -93,9 +91,20 @@ gitmodules-over-src_check_urls() {
 	return 0
 }
 
+# @FUNCTION: gitmodules-over-src_pkg_pretend
+# @USAGE: gitmodules-over-src_pkg_pretend
+# @DESCRIPTION:
+# Calls gitmodules-over-src_check_urls, aborting emerge in case of false.
+
 gitmodules-over-src_pkg_pretend() {
 	gitmodules-over-src_check_urls || die
 }
+
+# @FUNCTION: gitmodules-over-src_src_unpack
+# @USAGE: gitmodules-over-src_src_unpack
+# @DESCRIPTION:
+# Unpacks working tree, unpacking git submodules from source archives.
+# See GITMODULES_LIST description.
 
 gitmodules-over-src_src_unpack() {
 	default_src_unpack
