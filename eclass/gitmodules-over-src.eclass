@@ -34,7 +34,7 @@ case ${EAPI:-0} in
 * ) ;;
 esac
 
-EXPORT_FUNCTIONS src_unpack
+EXPORT_FUNCTIONS src_unpack pkg_pretend
 
 gitmodule_snapshot_info() {
 	local commit=$1
@@ -67,18 +67,35 @@ gitmodule_snapshot_info() {
 }
 
 GITMODULES_SRC_URI=
+GITMODULES_UNSUPPORTED=
 
 while read commit path url; do
 	[ "${commit}" ] || continue
 
 	read name ext url <<< $(gitmodule_snapshot_info "${commit}" "${path}" "${url}")
 	[ "${name}" = "#" ] && {
-		eerror "${ECLASS}: ${url}: Unsupported hosting"
+		GITMODULES_UNSUPPORTED+="
+			$url"
 		continue
 	}
 	GITMODULES_SRC_URI+=" ${url} -> ${name}.${ext}"
 done <<< "${GITMODULES_LIST}"
 export GITMODULES_SRC_URI
+
+gitmodules-over-src_check_urls() {
+	if [ "${GITMODULES_UNSUPPORTED}" ]; then
+		eerror "Unsupported git hosts for these URLs:"
+		while read l; do
+			[ "${l}" ] && eerror "\t${l}"
+		done <<< "${GITMODULES_UNSUPPORTED}"
+		return 1
+	fi
+	return 0
+}
+
+gitmodules-over-src_pkg_pretend() {
+	gitmodules-over-src_check_urls || die
+}
 
 gitmodules-over-src_src_unpack() {
 	default_src_unpack
@@ -92,10 +109,8 @@ gitmodules-over-src_src_unpack() {
 		[ "${commit}" ] || continue
 
 		read name ext url <<< $(gitmodule_snapshot_info "${commit}" "${path}" "${url}")
-		[ "${name}" = "#" ] && {
-			eerror "${ECLASS}: ${url}: Unsupported hosting"
-			continue
-		}
+		[ "${name}" = "#" ] && continue
+
 		[ -d "${path}" ] || mkdir -p "${path}"
 		einfo "\t${name} \t-> ${path}"
 		mv -f "../${name}"/* "${path}"/
