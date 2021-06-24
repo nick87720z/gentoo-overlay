@@ -22,17 +22,61 @@
 # List is expected to be sorted by RELATIVE-PATH field.
 # It could be generated from existing repository by runing gitmodules-src-list-gen inside repository.
 
+# commit archive url formats:
+# repo.or.cz:    ${GIT_REPO_URI}/snapshot/${COMMIT}.tar.gz
+# github:        ${GIT_REPO_URI}/archive/${COMMIT}.tar.gz
+# gitlab:        ${GIT_REPO_URI}/-/archive/${COMMIT}/${PROJECT}-${COMMIT}.tar.bz2
+# git.tuxfamily.org,
+# savannah/cgit: ${GIT_REPO_URI}/snapshot/${PROJECT}-${COMMIT}.tar.gz
+
+
 case ${EAPI:-0} in
 * ) ;;
 esac
 
 EXPORT_FUNCTIONS src_unpack
 
+gitmodule_snapshot_info() {
+	local commit=$1
+	local path=$2
+	local url=$3
+
+	url="${url%\/}"
+	IFS="/" read host tail <<< "${url/*:\/\//}"
+
+	name="${tail/*\//}"
+	name="${name%.git}"
+	filename="${name}-${commit}"
+
+	url="${url/git:/https:}"
+
+	case "${host}" in
+		repo.or.cz )
+			printf "%s" "${filename} tar.gz  ${url}/snapshot/${commit}.tar.gz" ;;
+		*github.com )
+			printf "%s" "${filename} tar.gz  ${url%.git}/archive/${commit}.tar.gz" ;;
+		*gitlab.com )
+			printf "%s" "${filename} tar.bz2 ${url}/-/archive/${commit}/${name}-${commit}.tar.bz2" ;;
+		git.savannah.* )
+			printf "%s" "${filename} tar.gz  ${url/@(${host}\/r\/|${host}\/git\/)/${host}\/cgit\/}/snapshot/${name}-${commit}.tar.gz" ;;
+		git.tuxfamily.org )
+			printf "%s" "${filename} tar.gz  ${url}/snapshot/${name}-${commit}.tar.gz" ;;
+		* )
+			printf "%s" "#" ;;
+	esac
+}
+
 GITMODULES_SRC_URI=
 
-while read m_path m_fname m_ext m_url; do
-	[ "${m_path}" ] || continue
-	GITMODULES_SRC_URI+=" ${m_url} -> ${m_fname}.${m_ext}"
+while read commit path url; do
+	[ "${commit}" ] || continue
+
+	read name ext url <<< $(gitmodule_snapshot_info "${commit}" "${path}" "${url}")
+	[ "${name}" = "#" ] && {
+		eerror "${ECLASS}: ${url}: Unsupported hosting"
+		continue
+	}
+	GITMODULES_SRC_URI+=" ${url} -> ${name}.${ext}"
 done <<< "${GITMODULES_LIST}"
 export GITMODULES_SRC_URI
 
@@ -44,10 +88,16 @@ gitmodules-over-src_src_unpack() {
 	cd "${WORKDIR}/${m_top/\/*/}"
 
 	einfo "Relocating git modules:"
-	while read m_path m_fname m_ext m_url; do
-		[ "${m_path}" ] || continue
-		[ -d "${m_path}" ] || mkdir -p "${m_path}"
-		einfo "\t${m_fname} \t-> ${m_path}"
-		mv -f "../${m_fname}"/* "${m_path}"/
+	while read commit path url; do
+		[ "${commit}" ] || continue
+
+		read name ext url <<< $(gitmodule_snapshot_info "${commit}" "${path}" "${url}")
+		[ "${name}" = "#" ] && {
+			eerror "${ECLASS}: ${url}: Unsupported hosting"
+			continue
+		}
+		[ -d "${path}" ] || mkdir -p "${path}"
+		einfo "\t${name} \t-> ${path}"
+		mv -f "../${name}"/* "${path}"/
 	done <<< "${GITMODULES_LIST}"
 }
