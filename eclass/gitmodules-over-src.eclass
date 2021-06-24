@@ -22,24 +22,11 @@
 # List is expected to be sorted by RELATIVE-PATH field.
 # It could be generated from existing repository by runing gitmodules-src-list-gen inside repository.
 
-# @ECLASS-VARIABLE: GITMODULES_FILE
-# @REQUIRED
-# @PRE_INHERIT
-# @DESCRIPTION
-# File, containing gitmodules list in format as for GITMODULES_LIST.
-# Used if GITMODULES_LIST is not set.
-
 case ${EAPI:-0} in
 * ) ;;
 esac
 
 EXPORT_FUNCTIONS src_unpack
-
-if [ -z "${GITMODULES_LIST}" ]; then
-	GITMODULES_FILE="${FILESDIR}/${P}-gitmodules"
-	[ -f "${GITMODULES_FILE}" ] || die "${ECLASS}: ${GITMODULES_FILE} is not found"
-	GITMODULES_LIST="$(< "${GITMODULES_FILE}")"
-fi
 
 GITMODULES_SRC_URI=
 
