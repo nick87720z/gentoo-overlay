@@ -45,9 +45,7 @@ git submodule foreach --recursive '
                         *gitlab.com    )
                                 printf "%s" "${filename} tar.bz2 ${url}/-/archive/${sha1}/${name}-${sha1}.tar.bz2" ;;
                         git.savannah.* )
-                                url=${url/${host}\/r\//${host}\/cgit\/}
-                                url=${url/${host}\/git\//${host}\/cgit\/}
-                                printf "%s" "${filename} tar.gz  ${url}/snapshot/${name}-${sha1}.tar.gz" ;;
+                                printf "%s" "${filename} tar.gz  ${url/@(${host}\/r\/|${host}\/git\/)/${host}\/cgit\/}/snapshot/${name}-${sha1}.tar.gz" ;;
                         git.tuxfamily.org )
                                 printf "%s" "${filename} tar.gz  ${url}/snapshot/${name}-${sha1}.tar.gz" ;;
                         * )
