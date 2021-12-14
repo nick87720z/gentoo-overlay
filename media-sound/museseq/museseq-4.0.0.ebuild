@@ -4,7 +4,7 @@
 EAPI=7
 
 # Limited by dev-python/pyro's supported range
-PYTHON_COMPAT=( python3_{7..8} )
+PYTHON_COMPAT=( python3_{8..9} )
 
 inherit cmake toolchain-funcs python-single-r1
 
@@ -64,7 +64,7 @@ RDEPEND="
 	python? (
 		${PYTHON_DEPS}
 		$(python_gen_cond_dep '
-			dev-python/pyro[${PYTHON_USEDEP}]
+			dev-python/Pyro4[${PYTHON_USEDEP}]
 			dev-python/PyQt5[${PYTHON_USEDEP}]
 		')
 	)
