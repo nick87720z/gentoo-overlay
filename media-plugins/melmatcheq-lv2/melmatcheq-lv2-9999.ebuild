@@ -5,7 +5,7 @@ EAPI=8
 
 inherit git-r3 multilib
 
-DESCRIPTION="MelMatchEQ is a profiling EQ using a 26 step Mel Frequency Band"
+DESCRIPTION="Matching Equalizer to apply EQ curve from on source to a other source."
 HOMEPAGE="https://github.com/brummer10/MelMatchEQ.lv2"
 SRC_URI=""
 
